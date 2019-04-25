@@ -1,10 +1,19 @@
 ---
-- name: create user
-  hosts: all
+- hosts: all
   tasks:
-    - name: add user bob  
-      user: 
-        name: bob
-        state: present
+  - name: create group 'marketing' and append user 'dione'
+    group:
+      name: marketing
+      state: present
+
+  - name: add user  dione to group 'marketing'
+    user:
+      name: dione
+      home: /home/dione
+      password: "{{ 'redhat2018' | password_hash('sha512') }}"
+      uid: 1040
+      group: marketing
+      append: yes
+
     
       
